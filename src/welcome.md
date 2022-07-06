@@ -6,7 +6,7 @@ it easy to get started with ROS (the Robot Operating System) and the F1Tenth Lab
 ## Who We Are
 
 This page is courtesy of North Carolina State University's Embedded Machine Learning Club!
-Find out more about us are our [homepage](https://embedml.github.io) and our [GitHub](https://github.com/embedml).
+Find out more about us at our [homepage](https://embedml.github.io) and our [GitHub](https://github.com/embedml).
 
 ## A Quick Guide to Navigating this Book
 To the left, on the summary list, you can find all the chapters, subchapters, and whatnot
