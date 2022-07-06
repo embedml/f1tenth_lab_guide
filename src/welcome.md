@@ -5,9 +5,8 @@ it easy to get started with ROS (the Robot Operating System) and the F1Tenth Lab
 
 ## Who We Are
 
-As of the time of writing this sentence, we is comprised of me, Arvin Kushwaha, and hopefully
-within a couple days of fleshing this out, _**we**_ will also comprise of the rest of the EmbedML
-F1Tenth group!
+This page is courtesy of North Carolina State University's Embedded Machine Learning Club!
+Find out more about us are our [homepage](https://embedml.github.io) and our [GitHub](https://github.com/embedml).
 
 ## A Quick Guide to Navigating this Book
 To the left, on the summary list, you can find all the chapters, subchapters, and whatnot

@@ -18,7 +18,7 @@
     2. [Terminal Interface](#terminal-interface)
     3. [Editing with VSCode](#editing-with-vscode)
 
-P.S.: Please use NeoVim, it's awesome and I built on an excellent configuration
+P.S.: Please use NeoVim, it's awesome and I (Arvin) built on an excellent configuration
 [here](https://github.com/ArvinSKushwaha/luavim). Also, if you use emacs, you're
 dead to me /j.
 
