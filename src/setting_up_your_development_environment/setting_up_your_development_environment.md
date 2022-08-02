@@ -49,15 +49,17 @@ Before proceeding, it may be useful to check out the next subchapter.
 
 Note, command options marked in square brackets (`[]`) are optional. Additionally,
 command options marked with angle brackets (`<>`) customizable. For example, `command
-[-a] <name>` means that both `command -a hypotenuse` and `command pineapple` are valid.
+[-a] <name>` means that both `command -a hypotenuse` and `command pineapple` are valid commands.
 
 | Command | Subset of Usage | Meaning | More Info |
 | :---: | :---: | :---: | :---: |
 | ps | `docker ps [-a]` | List all the containers | [Info](https://docs.docker.com/engine/reference/commandline/ps/) |
+| images | `docker images` | See all docker images | [Info](https://docs.docker.com/engine/reference/commandline/images/) |
 | cp | `docker cp <host-directory> <container-name>:<container-directory>` | Copy a directory from the host to the container with the matching name | [Info](https://docs.docker.com/engine/reference/commandline/cp/) |
 | cp | `docker cp <container-name>:<container-directory> <host-directory>` | Copy a directory from the container with the matching name to the host | [Info](https://docs.docker.com/engine/reference/commandline/cp/) |
-
-TODO: Add More Commands
+| run | `docker run <image-name> [--name <container-name>]` | Create and start a docker container. This command has a lot of options, see the info | [Info](https://docs.docker.com/engine/reference/commandline/run/) |
+| start | `docker start <container-name>` | Start a stopped docker container. | [Info](https://docs.docker.com/engine/reference/commandline/start/) |
+| stop | `docker stop <container-name>` | Stop a docker container. | [Info](https://docs.docker.com/engine/reference/commandline/start) |
 
 ## Getting the ROS Docker VNC Image (technically optional)
 
