@@ -136,7 +136,133 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="lab-1"><a class="header" href="#lab-1">Lab 1</a></h1>
+                        <style>
+    code {
+      white-space : pre-wrap !important;
+    }
+</style>
+<h1 id="lab-1"><a class="header" href="#lab-1">Lab 1</a></h1>
+<p>Welcome to Lab 1! Below, you will find an embedded PDF with the Lab 1 guide. Feel free to open it up
+in another tab.</p>
+<iframe src="https://drive.google.com/file/d/1p-XJmLWq6MfYiHIBPVSEkmM_7eD2a-f9/preview" 
+width="640px" height="480px" allow="autoplay"></iframe>
+<p>A small preface: commands to be executed in the terminal will be given as follows:</p>
+<pre><code>(&lt;path-to-directory&gt;) $ &lt;command&gt; [&lt;arguments&gt; ...]
+</code></pre>
+<p>If the <code>(&lt;path-to-directory&gt;)</code> segment is omitted, the command may be executed from anywhere.</p>
+<h2 id="setting-up-the-ros-workspace"><a class="header" href="#setting-up-the-ros-workspace">Setting up the ROS Workspace</a></h2>
+<p>If you are using the docker container, you will find that the <code>ros_ws</code> directory has already been created
+for you. Otherwise, you will have to create it yourself. This can be done with the <code>mkdir</code> command.
+Navigate to your home directory (any directory should work, but we will use the home directory throughout
+this guide) and execute:</p>
+<pre><code>(~/) $ mkdir ros_ws
+</code></pre>
+<p>Now navigate inside the <code>ros_ws</code> folder and make a folder named <code>src</code>. By now, the folder structure
+should look like:</p>
+<pre><code>ros_ws
+`-- src
+</code></pre>
+<p>From here, we can use the <code>catkin_make</code> command-line utility. Run the following command from inside the
+<code>ros_ws</code> directory:</p>
+<pre><code>(~/ros_ws/) $ catkin_make
+</code></pre>
+<p>From here, catkin (our build tool) will set up the rest of the folder structure:</p>
+<pre><code>ros_ws
+|-- build
+|   |-- CATKIN_IGNORE
+|   |-- CMakeCache.txt
+|   |-- CMakeFiles
+|   |-- CTestConfiguration.ini
+|   |-- CTestCustom.cmake
+|   |-- CTestTestfile.cmake
+|   |-- Makefile
+|   |-- atomic_configure
+|   |-- bin
+|   |-- catkin
+|   |-- catkin_generated
+|   |-- catkin_make.cache
+|   |-- cmake_install.cmake
+|   |-- gtest
+|   `-- test_results
+|-- devel
+|   |-- _setup_util.py
+|   |-- cmake.lock
+|   |-- env.sh
+|   |-- lib
+|   |-- local_setup.bash
+|   |-- local_setup.sh
+|   |-- local_setup.zsh
+|   |-- setup.bash
+|   |-- setup.sh
+|   `-- setup.zsh
+`-- src
+    `-- CMakeLists.txt
+</code></pre>
+<p>Don't let that scare you off though, most of it is completely irrelevant to us! 
+As you can see, under the <code>devel</code> folder, a <code>setup.bash</code> file was created. This
+file essentially gives us access to a bunch of ROS utilities and sets some
+environment variables that describe the location of our workspace. We will now
+&quot;source&quot; that file as follows:</p>
+<pre><code>(~/ros_ws/) $ source devel/setup.bash
+</code></pre>
+<p>Assuming you are using the Docker container and the workspace named <code>ros_ws</code>, the following, less
+verbose command:</p>
+<pre><code>$ rossource
+</code></pre>
+<p>may be used instead of the <code>source</code> command preceding it.</p>
+<h2 id="creating-our-package"><a class="header" href="#creating-our-package">Creating our Package</a></h2>
+<p>For lab 1, we will put our code in a package titled <code>lab1</code> (so original, I know). To create
+such a package, we use the <code>catkin_create_package</code> command (a bit verbose, yes?), which has
+the following syntax:</p>
+<pre><code>catkin_create_package &lt;package-name&gt; [&lt;package-dependencies&gt; ...]
+</code></pre>
+<p>Here are some basic dependencies you should be aware of:</p>
+<ul>
+<li><code>roscpp</code>: If you prefer to use C++ for your ROS shenanigans, <code>roscpp</code> is a necessary
+dependency.</li>
+<li><code>rospy</code>: If you prefer Python to be your weapon of choice, <code>rospy</code> is essential.</li>
+<li><code>std_msgs</code>: Sometimes you need to communicate with other ROS nodes (like always). If
+your messages are a primitive type, like <code>Float32</code> or <code>Bool</code>, <code>std_msgs</code> provides those.</li>
+<li><code>sensor_msgs</code>: If your communication involves sensor data, you will likely use <code>sensor_msgs</code>.
+For example, the <code>LaserScan</code> message.</li>
+</ul>
+<p>Of course, you can always add or remove dependencies later, so don't stress too much about it.
+To start with, we'll use <code>rospy</code>, <code>roscpp</code>, <code>std_msgs</code>, and <code>sensor_msgs</code>. Hence, run the following
+command:</p>
+<pre><code>(~/ros_ws/src/) $ catkin_create_package lab1 roscpp rospy std_msgs sensor_msgs
+</code></pre>
+<p>Note that this command is executed in the <code>~/ros_ws/src/</code> directory and not the <code>~/ros_ws/</code> directory.</p>
+<p>This command generates a folder called <code>lab1</code> in the <code>src</code> directory. Let's look at what's inside:</p>
+<pre><code>lab1
+|-- CMakeLists.txt
+|-- include
+|   `-- lab1
+|-- package.xml
+`-- src
+</code></pre>
+<p>A bit oddly, <code>catkin_create_package</code> does not create the <code>scripts</code> directory, which is typically where
+the python code goes, but regardless, the majority of the structure is setup for us!</p>
+<h2 id="investigating-our-packagexml"><a class="header" href="#investigating-our-packagexml">Investigating our <code>package.xml</code></a></h2>
+<p>Every package has two things in common: <code>package.xml</code>, and <code>CMakeLists.txt</code>. Let's look at <code>package.xml</code>
+first. <code>package.xml</code> behaves as a sort of metadata file containing information about who is managing a
+package, what dependencies a package has, and the license for the package, amongst other things. It is
+important to keep this file up-to-date, as it kind of serves as a living project tracker.</p>
+<p>Let's start by setting the description, maintainer, author, and license. You'll find that the
+dependencies have been set up for us.</p>
+<p>Starting description:</p>
+<pre><code class="language-xml">&lt;description&gt;The lab1 package&lt;/description&gt;
+</code></pre>
+<p>Let's update this description to something a bit more useful, like this:</p>
+<pre><code class="language-xml">&lt;description&gt;
+    A lidar processing node that outputs the closest and furthest data points, along with the range of data points.
+&lt;/description&gt;
+</code></pre>
+<p>Similarly, we can update the maintainer, author, and license to the following:</p>
+<pre><code class="language-xml">&lt;maintainer email=&quot;your.email@example.com&quot;&gt;Your Name&lt;/maintainer&gt;
+&lt;license&gt;MIT&lt;/license&gt; &lt;!-- MIT is quite nice, but be sure to research licenses! --&gt;
+&lt;author email=&quot;your.email@example.com&quot;&gt;Your Name&lt;/author&gt;
+</code></pre>
+<p>Remember to delete or comment out the template XML if you are replacing it!</p>
 
                     </main>
 

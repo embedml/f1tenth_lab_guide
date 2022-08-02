@@ -189,14 +189,17 @@ A decent internet connection (the ability to download about 4GB of data.)</li>
 <p>Before proceeding, it may be useful to check out the next subchapter.</p>
 <h2 id="quick-docker-command-summary"><a class="header" href="#quick-docker-command-summary">Quick Docker Command Summary</a></h2>
 <p>Note, command options marked in square brackets (<code>[]</code>) are optional. Additionally,
-command options marked with angle brackets (<code>&lt;&gt;</code>) customizable. For example, <code>command [-a] &lt;name&gt;</code> means that both <code>command -a hypotenuse</code> and <code>command pineapple</code> are valid.</p>
+command options marked with angle brackets (<code>&lt;&gt;</code>) customizable. For example, <code>command [-a] &lt;name&gt;</code> means that both <code>command -a hypotenuse</code> and <code>command pineapple</code> are valid commands.</p>
 <div class="table-wrapper"><table><thead><tr><th style="text-align: center">Command</th><th style="text-align: center">Subset of Usage</th><th style="text-align: center">Meaning</th><th style="text-align: center">More Info</th></tr></thead><tbody>
 <tr><td style="text-align: center">ps</td><td style="text-align: center"><code>docker ps [-a]</code></td><td style="text-align: center">List all the containers</td><td style="text-align: center"><a href="https://docs.docker.com/engine/reference/commandline/ps/">Info</a></td></tr>
+<tr><td style="text-align: center">images</td><td style="text-align: center"><code>docker images</code></td><td style="text-align: center">See all docker images</td><td style="text-align: center"><a href="https://docs.docker.com/engine/reference/commandline/images/">Info</a></td></tr>
 <tr><td style="text-align: center">cp</td><td style="text-align: center"><code>docker cp &lt;host-directory&gt; &lt;container-name&gt;:&lt;container-directory&gt;</code></td><td style="text-align: center">Copy a directory from the host to the container with the matching name</td><td style="text-align: center"><a href="https://docs.docker.com/engine/reference/commandline/cp/">Info</a></td></tr>
 <tr><td style="text-align: center">cp</td><td style="text-align: center"><code>docker cp &lt;container-name&gt;:&lt;container-directory&gt; &lt;host-directory&gt;</code></td><td style="text-align: center">Copy a directory from the container with the matching name to the host</td><td style="text-align: center"><a href="https://docs.docker.com/engine/reference/commandline/cp/">Info</a></td></tr>
+<tr><td style="text-align: center">run</td><td style="text-align: center"><code>docker run &lt;image-name&gt; [--name &lt;container-name&gt;]</code></td><td style="text-align: center">Create and start a docker container. This command has a lot of options, see the info</td><td style="text-align: center"><a href="https://docs.docker.com/engine/reference/commandline/run/">Info</a></td></tr>
+<tr><td style="text-align: center">start</td><td style="text-align: center"><code>docker start &lt;container-name&gt;</code></td><td style="text-align: center">Start a stopped docker container.</td><td style="text-align: center"><a href="https://docs.docker.com/engine/reference/commandline/start/">Info</a></td></tr>
+<tr><td style="text-align: center">stop</td><td style="text-align: center"><code>docker stop &lt;container-name&gt;</code></td><td style="text-align: center">Stop a docker container.</td><td style="text-align: center"><a href="https://docs.docker.com/engine/reference/commandline/start">Info</a></td></tr>
 </tbody></table>
 </div>
-<p>TODO: Add More Commands</p>
 <h2 id="getting-the-ros-docker-vnc-image-technically-optional"><a class="header" href="#getting-the-ros-docker-vnc-image-technically-optional">Getting the ROS Docker VNC Image (technically optional)</a></h2>
 <p>If you head to our GitHub project <a href="https://github.com/embedml/docker-ros-desktop-vnc">embedml/docker-ros-desktop-vnc</a>,
 you'll find more thorough instructions.</p>

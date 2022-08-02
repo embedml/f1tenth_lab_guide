@@ -207,14 +207,17 @@ A decent internet connection (the ability to download about 4GB of data.)</li>
 <p>Before proceeding, it may be useful to check out the next subchapter.</p>
 <h2 id="quick-docker-command-summary"><a class="header" href="#quick-docker-command-summary">Quick Docker Command Summary</a></h2>
 <p>Note, command options marked in square brackets (<code>[]</code>) are optional. Additionally,
-command options marked with angle brackets (<code>&lt;&gt;</code>) customizable. For example, <code>command [-a] &lt;name&gt;</code> means that both <code>command -a hypotenuse</code> and <code>command pineapple</code> are valid.</p>
+command options marked with angle brackets (<code>&lt;&gt;</code>) customizable. For example, <code>command [-a] &lt;name&gt;</code> means that both <code>command -a hypotenuse</code> and <code>command pineapple</code> are valid commands.</p>
 <div class="table-wrapper"><table><thead><tr><th style="text-align: center">Command</th><th style="text-align: center">Subset of Usage</th><th style="text-align: center">Meaning</th><th style="text-align: center">More Info</th></tr></thead><tbody>
 <tr><td style="text-align: center">ps</td><td style="text-align: center"><code>docker ps [-a]</code></td><td style="text-align: center">List all the containers</td><td style="text-align: center"><a href="https://docs.docker.com/engine/reference/commandline/ps/">Info</a></td></tr>
+<tr><td style="text-align: center">images</td><td style="text-align: center"><code>docker images</code></td><td style="text-align: center">See all docker images</td><td style="text-align: center"><a href="https://docs.docker.com/engine/reference/commandline/images/">Info</a></td></tr>
 <tr><td style="text-align: center">cp</td><td style="text-align: center"><code>docker cp &lt;host-directory&gt; &lt;container-name&gt;:&lt;container-directory&gt;</code></td><td style="text-align: center">Copy a directory from the host to the container with the matching name</td><td style="text-align: center"><a href="https://docs.docker.com/engine/reference/commandline/cp/">Info</a></td></tr>
 <tr><td style="text-align: center">cp</td><td style="text-align: center"><code>docker cp &lt;container-name&gt;:&lt;container-directory&gt; &lt;host-directory&gt;</code></td><td style="text-align: center">Copy a directory from the container with the matching name to the host</td><td style="text-align: center"><a href="https://docs.docker.com/engine/reference/commandline/cp/">Info</a></td></tr>
+<tr><td style="text-align: center">run</td><td style="text-align: center"><code>docker run &lt;image-name&gt; [--name &lt;container-name&gt;]</code></td><td style="text-align: center">Create and start a docker container. This command has a lot of options, see the info</td><td style="text-align: center"><a href="https://docs.docker.com/engine/reference/commandline/run/">Info</a></td></tr>
+<tr><td style="text-align: center">start</td><td style="text-align: center"><code>docker start &lt;container-name&gt;</code></td><td style="text-align: center">Start a stopped docker container.</td><td style="text-align: center"><a href="https://docs.docker.com/engine/reference/commandline/start/">Info</a></td></tr>
+<tr><td style="text-align: center">stop</td><td style="text-align: center"><code>docker stop &lt;container-name&gt;</code></td><td style="text-align: center">Stop a docker container.</td><td style="text-align: center"><a href="https://docs.docker.com/engine/reference/commandline/start">Info</a></td></tr>
 </tbody></table>
 </div>
-<p>TODO: Add More Commands</p>
 <h2 id="getting-the-ros-docker-vnc-image-technically-optional"><a class="header" href="#getting-the-ros-docker-vnc-image-technically-optional">Getting the ROS Docker VNC Image (technically optional)</a></h2>
 <p>If you head to our GitHub project <a href="https://github.com/embedml/docker-ros-desktop-vnc">embedml/docker-ros-desktop-vnc</a>,
 you'll find more thorough instructions.</p>
@@ -353,7 +356,25 @@ having to manually open the Docker container and whatnot all the time, I highly 
 adding <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack">this VSCode extension pack</a>.
 More information about remote development in VSCode may be found <a href="https://code.visualstudio.com/docs/remote/containers">here</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="the-magic-of-docker"><a class="header" href="#the-magic-of-docker">The Magic of Docker</a></h1>
-<p>Docker is not magic, it is evil.</p>
+<p>If you're looking at this guide, you're probably relatively familiar with Virtual Machines (VMs). If not,
+feel free to check out the <a href="setting_up_your_development_environment/the_magic_of_docker.html#appendix">appendix</a> of this page.</p>
+<p><font color="#ff5577">Note: This page is a ROUGH DRAFT and has been written by someone who is not an expert on
+Docker. If you find any inaccuracies, please <a href="https://github.com/embedml/f1tenth_lab_guide/issues/new">file an issue</a>
+along with a source or citation and we'll fix it ASAP.</font></p>
+<p>Docker is a set of services to perform virtualization. The software you'll become most familiar with is called
+Docker Engine. Unlike Virtual Machines, which virtualize all aspects of a system down to the hardware, Docker
+containers build upon the Linux kernel itself. The Linux kernel provides utilities that the Docker Engine takes
+advantage of to containerize and isolate the applications run in Docker containers.</p>
+<p>For operating systems like Windows and MacOS, Docker must still run on a Linux kernel. For MacOS, this is done
+through a small Linux VM, and for Windows, this is done either with Hyper-V or WSL.</p>
+<h2 id="why-are-we-using-docker"><a class="header" href="#why-are-we-using-docker">Why are we using Docker?</a></h2>
+<p>Unfortunately, ROS (Robot Operating System) is not particularly portable, so to make up for that, we use Docker
+to sort of bridge between the OS we are currently running on and the OS that ROS is supported on (which for ROS
+Noetic, is Ubuntu 20.04).</p>
+<h2 id="appendix"><a class="header" href="#appendix">Appendix</a></h2>
+<p>Welcome to the Appendix! Here we will be looking at virtual machines (and maybe more stuff) in a bit more detail.</p>
+<h3 id="virtual-machines"><a class="header" href="#virtual-machines">Virtual Machines</a></h3>
+<p>Virtual Machines are awesome.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="getting-into-ros"><a class="header" href="#getting-into-ros">Getting into ROS</a></h1>
 <p>Before we get into the F1Tenth labs, let's talk ROS. ROS, the Robot Operating System,
 is somewhat of a misnomer. It's not really an operating system and more of a set of
@@ -363,7 +384,136 @@ message-passing framework, amongst other things.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="nodes-and-message-passing"><a class="header" href="#nodes-and-message-passing">Nodes and Message Passing</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="topics-subscribers-and-publishers"><a class="header" href="#topics-subscribers-and-publishers">Topics, Subscribers, and Publishers</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-to-f1tenth"><a class="header" href="#introduction-to-f1tenth">Introduction to F1Tenth</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="lab-1"><a class="header" href="#lab-1">Lab 1</a></h1>
+<p>F1Tenth is a community of individuals enthusiastic about Autonomous Systems. This amazing community has
+put together many labs and competitions to bring attention to and showcase the science behind autonomous
+vehicles. The following chapters aim to behave as a sort of walkthrough for each of the F1Tenth labs.</p>
+<div style="break-before: page; page-break-before: always;"></div><style>
+    code {
+      white-space : pre-wrap !important;
+    }
+</style>
+<h1 id="lab-1"><a class="header" href="#lab-1">Lab 1</a></h1>
+<p>Welcome to Lab 1! Below, you will find an embedded PDF with the Lab 1 guide. Feel free to open it up
+in another tab.</p>
+<iframe src="https://drive.google.com/file/d/1p-XJmLWq6MfYiHIBPVSEkmM_7eD2a-f9/preview" 
+width="640px" height="480px" allow="autoplay"></iframe>
+<p>A small preface: commands to be executed in the terminal will be given as follows:</p>
+<pre><code>(&lt;path-to-directory&gt;) $ &lt;command&gt; [&lt;arguments&gt; ...]
+</code></pre>
+<p>If the <code>(&lt;path-to-directory&gt;)</code> segment is omitted, the command may be executed from anywhere.</p>
+<h2 id="setting-up-the-ros-workspace"><a class="header" href="#setting-up-the-ros-workspace">Setting up the ROS Workspace</a></h2>
+<p>If you are using the docker container, you will find that the <code>ros_ws</code> directory has already been created
+for you. Otherwise, you will have to create it yourself. This can be done with the <code>mkdir</code> command.
+Navigate to your home directory (any directory should work, but we will use the home directory throughout
+this guide) and execute:</p>
+<pre><code>(~/) $ mkdir ros_ws
+</code></pre>
+<p>Now navigate inside the <code>ros_ws</code> folder and make a folder named <code>src</code>. By now, the folder structure
+should look like:</p>
+<pre><code>ros_ws
+`-- src
+</code></pre>
+<p>From here, we can use the <code>catkin_make</code> command-line utility. Run the following command from inside the
+<code>ros_ws</code> directory:</p>
+<pre><code>(~/ros_ws/) $ catkin_make
+</code></pre>
+<p>From here, catkin (our build tool) will set up the rest of the folder structure:</p>
+<pre><code>ros_ws
+|-- build
+|   |-- CATKIN_IGNORE
+|   |-- CMakeCache.txt
+|   |-- CMakeFiles
+|   |-- CTestConfiguration.ini
+|   |-- CTestCustom.cmake
+|   |-- CTestTestfile.cmake
+|   |-- Makefile
+|   |-- atomic_configure
+|   |-- bin
+|   |-- catkin
+|   |-- catkin_generated
+|   |-- catkin_make.cache
+|   |-- cmake_install.cmake
+|   |-- gtest
+|   `-- test_results
+|-- devel
+|   |-- _setup_util.py
+|   |-- cmake.lock
+|   |-- env.sh
+|   |-- lib
+|   |-- local_setup.bash
+|   |-- local_setup.sh
+|   |-- local_setup.zsh
+|   |-- setup.bash
+|   |-- setup.sh
+|   `-- setup.zsh
+`-- src
+    `-- CMakeLists.txt
+</code></pre>
+<p>Don't let that scare you off though, most of it is completely irrelevant to us! 
+As you can see, under the <code>devel</code> folder, a <code>setup.bash</code> file was created. This
+file essentially gives us access to a bunch of ROS utilities and sets some
+environment variables that describe the location of our workspace. We will now
+&quot;source&quot; that file as follows:</p>
+<pre><code>(~/ros_ws/) $ source devel/setup.bash
+</code></pre>
+<p>Assuming you are using the Docker container and the workspace named <code>ros_ws</code>, the following, less
+verbose command:</p>
+<pre><code>$ rossource
+</code></pre>
+<p>may be used instead of the <code>source</code> command preceding it.</p>
+<h2 id="creating-our-package"><a class="header" href="#creating-our-package">Creating our Package</a></h2>
+<p>For lab 1, we will put our code in a package titled <code>lab1</code> (so original, I know). To create
+such a package, we use the <code>catkin_create_package</code> command (a bit verbose, yes?), which has
+the following syntax:</p>
+<pre><code>catkin_create_package &lt;package-name&gt; [&lt;package-dependencies&gt; ...]
+</code></pre>
+<p>Here are some basic dependencies you should be aware of:</p>
+<ul>
+<li><code>roscpp</code>: If you prefer to use C++ for your ROS shenanigans, <code>roscpp</code> is a necessary
+dependency.</li>
+<li><code>rospy</code>: If you prefer Python to be your weapon of choice, <code>rospy</code> is essential.</li>
+<li><code>std_msgs</code>: Sometimes you need to communicate with other ROS nodes (like always). If
+your messages are a primitive type, like <code>Float32</code> or <code>Bool</code>, <code>std_msgs</code> provides those.</li>
+<li><code>sensor_msgs</code>: If your communication involves sensor data, you will likely use <code>sensor_msgs</code>.
+For example, the <code>LaserScan</code> message.</li>
+</ul>
+<p>Of course, you can always add or remove dependencies later, so don't stress too much about it.
+To start with, we'll use <code>rospy</code>, <code>roscpp</code>, <code>std_msgs</code>, and <code>sensor_msgs</code>. Hence, run the following
+command:</p>
+<pre><code>(~/ros_ws/src/) $ catkin_create_package lab1 roscpp rospy std_msgs sensor_msgs
+</code></pre>
+<p>Note that this command is executed in the <code>~/ros_ws/src/</code> directory and not the <code>~/ros_ws/</code> directory.</p>
+<p>This command generates a folder called <code>lab1</code> in the <code>src</code> directory. Let's look at what's inside:</p>
+<pre><code>lab1
+|-- CMakeLists.txt
+|-- include
+|   `-- lab1
+|-- package.xml
+`-- src
+</code></pre>
+<p>A bit oddly, <code>catkin_create_package</code> does not create the <code>scripts</code> directory, which is typically where
+the python code goes, but regardless, the majority of the structure is setup for us!</p>
+<h2 id="investigating-our-packagexml"><a class="header" href="#investigating-our-packagexml">Investigating our <code>package.xml</code></a></h2>
+<p>Every package has two things in common: <code>package.xml</code>, and <code>CMakeLists.txt</code>. Let's look at <code>package.xml</code>
+first. <code>package.xml</code> behaves as a sort of metadata file containing information about who is managing a
+package, what dependencies a package has, and the license for the package, amongst other things. It is
+important to keep this file up-to-date, as it kind of serves as a living project tracker.</p>
+<p>Let's start by setting the description, maintainer, author, and license. You'll find that the
+dependencies have been set up for us.</p>
+<p>Starting description:</p>
+<pre><code class="language-xml">&lt;description&gt;The lab1 package&lt;/description&gt;
+</code></pre>
+<p>Let's update this description to something a bit more useful, like this:</p>
+<pre><code class="language-xml">&lt;description&gt;
+    A lidar processing node that outputs the closest and furthest data points, along with the range of data points.
+&lt;/description&gt;
+</code></pre>
+<p>Similarly, we can update the maintainer, author, and license to the following:</p>
+<pre><code class="language-xml">&lt;maintainer email=&quot;your.email@example.com&quot;&gt;Your Name&lt;/maintainer&gt;
+&lt;license&gt;MIT&lt;/license&gt; &lt;!-- MIT is quite nice, but be sure to research licenses! --&gt;
+&lt;author email=&quot;your.email@example.com&quot;&gt;Your Name&lt;/author&gt;
+</code></pre>
+<p>Remember to delete or comment out the template XML if you are replacing it!</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="lab-2"><a class="header" href="#lab-2">Lab 2</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="lab-3"><a class="header" href="#lab-3">Lab 3</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="lab-4"><a class="header" href="#lab-4">Lab 4</a></h1>
